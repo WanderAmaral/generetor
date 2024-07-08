@@ -32,6 +32,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="about"
+        options={{
+          title: 'Vercel',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'logo-vercel' : 'logo-vercel'} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import * as Clipboard from "expo-clipboard";
 
 interface ModalPasswordProps {
   password: string;
@@ -15,18 +16,28 @@ export default function ModalPassword({
   password,
   handleClose,
 }: ModalPasswordProps) {
+  const handleCopyPassword = async () => {
+    await Clipboard.setStringAsync(password);
+    alert("Senha salva com sucesso!");
+
+    handleClose();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Senha Gerada</Text>
-        <Pressable style={styles.innerPassword}>
+        <Pressable style={styles.innerPassword} onPress={handleCopyPassword}>
           <Text style={styles.text}>{password}</Text>
         </Pressable>
         <View style={styles.containerButton}>
           <TouchableOpacity style={styles.button} onPress={handleClose}>
             <Text>Voltar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.buttonSave]}>
+          <TouchableOpacity
+            style={[styles.button, styles.buttonSave]}
+            onPress={handleCopyPassword}
+          >
             <Text style={styles.buttonSaveText}>Salvar senha</Text>
           </TouchableOpacity>
         </View>
@@ -54,7 +65,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 24, fontWeight: "600", paddingVertical: 15 },
   innerPassword: {
     backgroundColor: "#0E0E0E",
-    width: "80%",
+    width: "90%",
     borderRadius: 7,
     paddingVertical: 7,
     alignItems: "center",
@@ -70,12 +81,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
+    gap: 5
   },
   button: {
     flex: 1,
     alignItems: "center",
     marginVertical: 14,
     padding: 8,
+    borderWidth: 1,
+    borderRadius: 8
   },
   buttonSave: {
     backgroundColor: "#392DE9",
