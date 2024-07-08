@@ -50,7 +50,7 @@ export default function App() {
         <Text style={styles.buttonText}>Gerar senha</Text>
       </TouchableOpacity>
       <Modal animationType="fade" visible={modalView} transparent={true}>
-        <ModalPassword />
+        <ModalPassword password={passwordValue} handleClose={() => setModalView(false)}/>
       </Modal>
     </View>
   );
