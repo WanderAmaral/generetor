@@ -1,25 +1,35 @@
 import Slider from "@react-native-community/slider";
 import { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
+import ModalPassword from "../src/components/modal";
 
-let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
-
+let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 
 export default function App() {
   const [size, setSize] = useState<number>(10);
+  const [passwordValue, setPasswordValue] = useState("");
+  const [modalView, setModalView] = useState(false);
 
   const handleClickGenerator = () => {
-    let password = ""
+    let password = "";
 
-    for(let i = 0, n = charset.length; i < size; i++) {
-      password += charset.charAt(Math.floor(Math.random() * n))
+    for (let i = 0, n = charset.length; i < size; i++) {
+      password += charset.charAt(Math.floor(Math.random() * n));
     }
-    console.log(password)
-  }
+    setPasswordValue(password);
+    setModalView(true);
+  };
 
   return (
     <View style={styles.container}>
-      <Image 
+      <Image
         style={styles.logo}
         source={require("@/app/src/assets/logo.png")}
       />
@@ -39,6 +49,9 @@ export default function App() {
       <TouchableOpacity style={styles.button} onPress={handleClickGenerator}>
         <Text style={styles.buttonText}>Gerar senha</Text>
       </TouchableOpacity>
+      <Modal animationType="fade" visible={modalView} transparent={true}>
+        <ModalPassword />
+      </Modal>
     </View>
   );
 }
@@ -46,7 +59,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "# F3F3FF",
+    backgroundColor: "#F3F3FF",
     justifyContent: "center",
     alignItems: "center",
   },
