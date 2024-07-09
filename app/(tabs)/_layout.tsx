@@ -33,11 +33,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="password"
         options={{
-          title: 'Vercel',
+          title: 'Passwords',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'logo-vercel' : 'logo-vercel'} color={color} />
+            <TabBarIcon name={focused ? 'lock-closed' : 'lock-closed-outline'} color={color} />
           ),
         }}
       />

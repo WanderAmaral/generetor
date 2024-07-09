@@ -6,6 +6,7 @@ import {
   Pressable,
 } from "react-native";
 import * as Clipboard from "expo-clipboard";
+import useStorage from "../../hooks/useStorage";
 
 interface ModalPasswordProps {
   password: string;
@@ -16,9 +17,11 @@ export default function ModalPassword({
   password,
   handleClose,
 }: ModalPasswordProps) {
+  const { saveItem } = useStorage();
+
   const handleCopyPassword = async () => {
     await Clipboard.setStringAsync(password);
-    alert("Senha salva com sucesso!");
+    await saveItem("@pass", password);
 
     handleClose();
   };
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
-    gap: 5
+    gap: 5,
   },
   button: {
     flex: 1,
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
     marginVertical: 14,
     padding: 8,
     borderWidth: 1,
-    borderRadius: 8
+    borderRadius: 8,
   },
   buttonSave: {
     backgroundColor: "#392DE9",
